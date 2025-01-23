@@ -13,9 +13,9 @@ TOKEN_PICKLE = 'token.pickle'
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 
 # Save JSON credentials from GitHub secret to a temporary file
-CLIENT_SECRET_JSON = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+CLIENT_SECRET_JSON = os.environ.get("GOOGLE_CREDENTIALS")
 if CLIENT_SECRET_JSON is None:
-    raise EnvironmentError("Missing GOOGLE_APPLICATION_CREDENTIALS environment variable")
+    raise EnvironmentError("Missing GOOGLE_CREDENTIALS environment variable")
 
 TEMP_SECRET_FILE = 'client_secret.json'
 with open(TEMP_SECRET_FILE, 'w') as f:
