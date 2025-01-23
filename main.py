@@ -24,12 +24,20 @@ with open(TEMP_SECRET_FILE, 'w') as f:
 def generate_banner(progress, total_days):
     img = Image.new('RGB', (WIDTH, HEIGHT), color='black')
     draw = ImageDraw.Draw(img)
-    # Draw progress bar
-    progress_width = int((progress / total_days) * WIDTH * 0.8)
+
+    # Define bar dimensions and radius for rounded corners
     bar_x1, bar_y1 = WIDTH * 0.1, HEIGHT // 2
-    bar_x2, bar_y2 = bar_x1 + progress_width, bar_y1 + 40
-    draw.rectangle([bar_x1, bar_y1, WIDTH * 0.9, bar_y2], fill="gray")
-    draw.rectangle([bar_x1, bar_y1, bar_x2, bar_y2], fill="white")
+    bar_x2, bar_y2 = WIDTH * 0.9, bar_y1 + 40
+    radius = 20  # Adjust the corner radius here
+
+    # Draw background bar (gray, with rounded corners)
+    draw.rounded_rectangle([bar_x1, bar_y1, bar_x2, bar_y2], radius=radius, fill="gray")
+
+    # Calculate progress and draw foreground bar (white, with rounded corners)
+    progress_width = int((progress / total_days) * (bar_x2 - bar_x1))
+    progress_bar_x2 = bar_x1 + progress_width
+    draw.rounded_rectangle([bar_x1, bar_y1, progress_bar_x2, bar_y2], radius=radius, fill="white")
+
     img.save("youtube_banner.png")
 
 def update_youtube_banner():
